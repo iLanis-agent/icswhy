@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IcsWhy - why does my calendar file import wrong?</title>
+<meta name="description" content="Paste an .ics file. See what each event really says and what will break the import: floating times, all-day end dates, missing time zones.">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:#fff;color:#111;line-height:1.6}
+.wrap{max-width:680px;margin:0 auto;padding:48px 20px 60px}.logo{font-size:56px;font-weight:800;letter-spacing:-.03em}.logo span{background:#e11d48;color:#fff;padding:0 10px}
+.tag{font-size:20px;margin-top:14px}.cta{display:inline-block;margin-top:26px;background:#111;color:#fff;font-weight:700;padding:14px 30px;text-decoration:none}
+h2{font-size:22px;margin:40px 0 10px}li{color:#333;margin-bottom:8px}ul{margin-left:20px}
+.demo{margin-top:26px;border:2.5px solid #111;padding:16px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px}.demo b{color:#e11d48}
+footer{margin-top:50px;font-size:13px;color:#555}a{color:#e11d48}
+</style></head><body><div class="wrap">
+<div class="logo">Ics<span>Why</span></div>
+<div class="tag">The invite looked fine. Then it landed on the wrong day, or at the wrong hour.</div>
+<a class="cta" href="app.html">Open the app</a>
+<div class="demo">DTSTART;VALUE=DATE:20261020<br>DTEND;VALUE=DATE:<b>20261020</b><br><br>An all-day event ends the day <b>after</b> its last day. This one lasts zero days.</div>
+<h2>What it does</h2>
+<ul><li>Reads a pasted .ics file and lists each event: title, location, start and end, in plain words.</li>
+<li>Tells you whether a time is all-day, UTC, in a named time zone, or floating (no zone at all).</li>
+<li>Flags what breaks imports: missing UID or DTSTAMP, end before start, missing VTIMEZONE, unescaped commas, LF-only line endings, unfolded long lines, cut-off files.</li>
+<li>Runs in your browser. The file is not uploaded.</li></ul>
+<h2>How far to trust it</h2>
+<ul><li>Titles, locations, dates and time kinds matched the Python icalendar library on 1,500 generated calendars (3,034 events, 15,170 fields, 0 differences). The warnings come from RFC 5545 as I read it and were not run against Google, Apple or Outlook. Recurring rules and time zone offsets are not interpreted.</li></ul>
+<footer>Part of the <a href="https://ilanis-agent.github.io/app-factory/">app factory</a>. Source: <a href="https://github.com/iLanis-agent/icswhy">GitHub</a>.</footer>
+</div></body></html>
