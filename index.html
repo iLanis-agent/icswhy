@@ -18,7 +18,7 @@ footer{margin-top:50px;font-size:13px;color:#555}a{color:#e11d48}
 <h2>What it does</h2>
 <ul><li>Reads a pasted .ics file and lists each event: title, location, start and end, in plain words.</li>
 <li>Tells you whether a time is all-day, UTC, in a named time zone, or floating (no zone at all).</li>
-<li>Flags what breaks imports: missing UID or DTSTAMP, end before start, missing VTIMEZONE, unescaped commas, LF-only line endings, unfolded long lines, cut-off files.</li>
+<li>Flags what breaks imports: missing UID or DTSTAMP, end before start, missing VTIMEZONE, unescaped commas, unfolded long lines, cut-off files.</li>
 <li>Runs in your browser. The file is not uploaded.</li></ul>
 <h2>How far to trust it</h2>
 <ul><li>Titles, locations, dates and time kinds matched the Python icalendar library on 1,500 generated calendars (3,034 events, 15,170 fields, 0 differences). The warnings come from RFC 5545 as I read it and were not run against Google, Apple or Outlook. Recurring rules and time zone offsets are not interpreted.</li></ul>
