@@ -42,9 +42,10 @@
     return { kind: 'floating', text: text };
   }
   function daysIn(t) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(t); return Date.UTC(+m[1], +m[2] - 1, +m[3]) / 864e5; }
-  function parse(text) {
+  function parse(text, opts) {
+    opts = opts || {};
     var u = unfold(text), issues = [], events = [], stack = [], cur = null, hasTz = {}, cal = { version: null, prodid: null }, i, L, p;
-    if (u.bareLF) issues.push({ lvl: 'warn', msg: 'Lines end with LF only. RFC 5545 requires CRLF; strict importers (some Outlook versions) may refuse the file.' });
+    if (u.bareLF && !opts.pasted) issues.push({ lvl: 'warn', msg: 'Lines end with LF only. RFC 5545 requires CRLF; strict importers (some Outlook versions) may refuse the file.' });
     if (u.longLines.length) issues.push({ lvl: 'warn', msg: u.longLines.length + ' line(s) are longer than 75 bytes and not folded (line ' + u.longLines.slice(0, 5).join(', ') + (u.longLines.length > 5 ? ', ...' : '') + '). Most apps cope; strict ones do not.' });
     if (!u.lines.length) return { events: [], issues: [{ lvl: 'err', msg: 'No content lines found.' }], cal: cal };
     if (!/^BEGIN:VCALENDAR$/i.test(u.lines[0].text)) issues.push({ lvl: 'err', msg: 'The file must start with BEGIN:VCALENDAR (first line is "' + u.lines[0].text.slice(0, 40) + '").' });
