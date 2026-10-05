@@ -81,7 +81,7 @@
       [e.start, e.end].forEach(function (t) {
         if (!t || t.error) return;
         if (t.conflict) e.issues.push({ lvl: 'warn', msg: 'Time ends in Z (UTC) but also has TZID=' + t.tzid + '. The TZID is ignored by most apps; use one or the other.' });
-        if (t.kind === 'tzid' && !hasTz[t.tzid]) e.issues.push({ lvl: 'warn', msg: 'TZID=' + t.tzid + ' has no VTIMEZONE block in the file. Apps that know the name may cope; others will shift or ignore the time.' });
+        if (t.kind === 'tzid' && !hasTz[t.tzid] && !e.issues.some(function (q) { return q.msg.indexOf('TZID=' + t.tzid + ' has no') === 0; })) e.issues.push({ lvl: 'warn', msg: 'TZID=' + t.tzid + ' has no VTIMEZONE block in the file. Apps that know the name may cope; others will shift or ignore the time.' });
         if (t.kind === 'floating') e.issues.push({ lvl: 'info', msg: 'A time without Z or TZID is "floating": it shows as the same clock time in every time zone, which is rarely what an invitation wants.' });
       });
       if (e.start && e.end && !e.start.error && !e.end.error) {
